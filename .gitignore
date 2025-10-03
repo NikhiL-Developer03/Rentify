@@ -1,0 +1,64 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+/dist
+/build
+/out
+/.next
+/.nuxt
+/.output
+
+# Frontend specific
+/frontend/.vite
+
+# Logs
+logs
+*.log
+
+# Backend specific
+/backend/uploads/*
+!/backend/uploads/cars/
+!/backend/uploads/invoices/
+/backend/uploads/cars/*
+!/backend/uploads/cars/.gitkeep
+/backend/uploads/invoices/*
+!/backend/uploads/invoices/.gitkeep
+
+# IDE and Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.history/
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+/coverage
+/.nyc_output
+/cypress/videos/
+/cypress/screenshots/
+/playwright-report/
+
+# Misc
+.cache/
+.parcel-cache/
+.temp/
+.tmp/
+*.tsbuildinfo
