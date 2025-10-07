@@ -18,8 +18,17 @@ const authenticateToken = async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-    // Get user details
-    const user = await User.findById(decoded.userId);
+    // Set timeout for database operations
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Database request timeout')), 5000);
+    });
+    
+    // Get user details with timeout
+    const userPromise = User.findById(decoded.userId);
+    
+    // Race the user fetch against the timeout
+    const user = await Promise.race([userPromise, timeoutPromise]);
+    
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -61,6 +70,15 @@ const authenticateToken = async (req, res, next) => {
       });
     }
     
+    // Handle timeout errors specifically
+    if (error.message === 'Database request timeout') {
+      console.error('Auth middleware timeout error:', error);
+      return res.status(503).json({
+        success: false,
+        message: 'Service temporarily unavailable. Please try again.'
+      });
+    }
+    
     console.error('Auth middleware error:', error);
     return res.status(500).json({
       success: false,
@@ -95,7 +113,17 @@ const optionalAuth = async (req, res, next) => {
     
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.userId);
+      
+      // Set timeout for database operations
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Database request timeout')), 5000);
+      });
+      
+      // Get user details with timeout
+      const userPromise = User.findById(decoded.userId);
+      
+      // Race the user fetch against the timeout
+      const user = await Promise.race([userPromise, timeoutPromise]);
       
       if (user) {
         req.user = {

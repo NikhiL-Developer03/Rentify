@@ -49,12 +49,19 @@ const findByEmail = async (email) => {
 const findById = async (id) => {
   try {
     const pool = await poolPromise;
-    const result = await pool.request()
+    const request = pool.request();
+    
+    // Set query timeout to 5 seconds
+    request.timeout = 5000;
+    
+    const result = await request
       .input('id', sql.Int, id)
       .query('SELECT * FROM dbo.Users WHERE Id = @id');
     
     return result.recordset[0];
   } catch (error) {
+    // Add more specific error information for debugging
+    console.error(`Database error in findById(${id}):`, error);
     throw error;
   }
 };

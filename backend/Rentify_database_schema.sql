@@ -377,6 +377,3 @@ ORDER BY t.TABLE_NAME, c.ORDINAL_POSITION;
 -- =============================================
 -- END OF COMPLETE DATABASE SCHEMA
 -- =============================================
-
-
-

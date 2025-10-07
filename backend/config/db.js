@@ -12,6 +12,13 @@ const config = {
   options: {
     encrypt: false, // true if using Azure SQL
     trustServerCertificate: true
+  },
+  connectionTimeout: 10000, // 10 seconds
+  requestTimeout: 10000,    // 10 seconds
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
   }
 };
 
