@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,7 +19,7 @@ import Contact from './pages/Contact'
 import Profile from './pages/Profile'
 
 // Protected Route Component
-import ProtectedRoute from '@/components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
